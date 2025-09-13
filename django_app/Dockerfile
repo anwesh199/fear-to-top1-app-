@@ -12,5 +12,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-CMD ["gunicorn", "django_app.wsgi:application", "--bind", "0.0.0.0:$PORT"]
+CMD ["gunicorn", "django_app.wsgi:application", "--chdir", "django_app", "--bind", "0.0.0.0:$PORT"]
+
 
