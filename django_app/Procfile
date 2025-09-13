@@ -1,2 +1,2 @@
-web: gunicorn django_app.django_app.wsgi:application --bind 0.0.0.0:$PORT
+web: gunicorn django_app.wsgi:application --chdir django_app --bind 0.0.0.0:$PORT
 assistant: python flask_assistant/app.py
