@@ -1,0 +1,32 @@
+version: "3.9"
+
+services:
+  django:
+    build: .
+    command: gunicorn django_app.django_app.wsgi:application --bind 0.0.0.0:8000
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    depends_on:
+      - db
+
+  flask:
+    build: .
+    command: python flask_assistant/app.py
+    ports:
+      - "5001:5001"
+    env_file:
+      - .env
+    depends_on:
+      - django
+
+  db:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_DB: tracker
+      POSTGRES_USER: tracker
+      POSTGRES_PASSWORD: tracker
+    ports:
+      - "5432:5432"
